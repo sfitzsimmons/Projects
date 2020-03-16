@@ -1,0 +1,74 @@
+def federal_income_tax_calculator (yearly_earnings_before_tax, filing_status):
+
+    if filing_status == "single":
+        standard_deduction = 12400
+        gate1 = 9875
+        gate2 = 40125
+        gate3 = 85525
+        gate4 = 163300
+        gate5 = 207350
+        gate6 = 518400
+    elif filing_status == "head of household":
+        standard_deduction = 18650
+        gate1 = 14100
+        gate2 = 53700
+        gate3 = 85500
+        gate4 = 163300
+        gate5 = 207350
+        gate6 = 518400
+    elif filing_status == "married filing jointly or qualifying widow":
+        standard_deduction = 24800
+        gate1 = 19750
+        gate2 = 80250
+        gate3 = 171050
+        gate4 = 326600
+        gate5 = 414700
+        gate6 = 622050
+    elif filing_status == "married filing seperately":
+        standard_deduction = 12400
+        gate1 = 9875
+        gate2 = 40125
+        gate3 = 85525
+        gate4 = 163300
+        gate5 = 207350
+        gate6 = 311025
+
+    taxable_income = yearly_earnings_before_tax - standard_deduction
+
+    bucket1 = gate1 * .10
+    bucket2 = (gate2 - gate1) * .12
+    bucket3 = (gate3 - gate2) * .22
+    bucket4 = (gate4 - gate3) * .24
+    bucket5 = (gate5 - gate4) * .32
+    bucket6 = (gate6 - gate5) * .35
+
+    shelf1 = bucket1
+    shelf2 = shelf1 + bucket2
+    shelf3 = shelf2 + bucket3
+    shelf4 = shelf3 + bucket4
+    shelf5 = shelf4 + bucket5
+    shelf6 = shelf5 + bucket6
+
+    if taxable_income <= gate1:
+        federal_income_tax = taxable_income * .10
+    elif taxable_income <= gate2:
+        federal_income_tax = (taxable_income - gate1) * .12 + shelf1
+    elif taxable_income <= gate3:
+        federal_income_tax = (taxable_income - gate2) * .22 + shelf2
+    elif taxable_income <= gate4:
+        federal_income_tax = (taxable_income - gate3) * .24 + shelf3
+    elif taxable_income <= gate5:
+        federal_income_tax = (taxable_income - gate4) * .32 + shelf4
+    elif taxable_income <= gate6:
+        federal_income_tax = (taxable_income - gate5) * .35 + shelf5
+    elif taxable_income > gate6:
+        federal_income_tax = (taxable_income - gate6) * .37 + shelf6
+
+    yearly_earnings_after_tax = yearly_earnings_before_tax - federal_income_tax
+    effective_tax_rate = 1 - yearly_earnings_after_tax / yearly_earnings_before_tax
+    effective_tax_rate = round(effective_tax_rate, 3)
+    federal_income_tax = round(federal_income_tax, 2)
+    yearly_earnings_after_tax = round(yearly_earnings_after_tax, 2)
+    effective_tax_rate = format(effective_tax_rate, ".1%")
+
+    return yearly_earnings_after_tax, effective_tax_rate, federal_income_tax, standard_deduction, taxable_income
