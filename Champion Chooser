@@ -1,0 +1,80 @@
+import tkinter as tk
+import random
+
+
+window = tk.Tk()
+window.title("Random Champion")
+window.geometry("835x113")
+
+# FUNCTIONS
+def rand_champ():
+    rand_int = random.randint(1, 26)
+    letters = {1: 'A', 2: 'B', 3: 'C', 4: 'D',
+               5: 'E', 6: 'F', 7: 'G', 8: 'H', 9: 'I', 10: 'J',
+               11: 'K', 12: 'L', 13: 'M', 14: 'N', 15: 'O', 16: 'P',
+               17: 'Q', 18: 'R', 19: 'S', 20: 'T', 21: 'U', 22: 'V',
+               23: 'W', 24: 'X', 25: 'Y', 26: 'Z'}
+    rand_letter = letters[rand_int].upper()
+
+    champions = ['Aatrox', 'Ahri', 'Akali', 'Alistar', 'Amumu', 'Anivia', 'Annie', 'Aphelios', 'Ashe', 'Aurelion Sol',
+                 'Azir', 'Bard', 'Blitzcrank', 'Brand', 'Braum', 'Caitlyn', 'Camille', "Cho'Gath", 'Corki', 'Darius',
+                 'Diana', 'Draven', 'Dr. Mundo', 'Ekko', 'Elise', 'Evelynn', 'Ezreal', 'Fiddlesticks', 'Fiora', 'Fizz',
+                 'Galio', 'Gangplank', 'Garen', 'Gnar', 'Gragas', 'Graves', 'Hecarim', 'Heimerdinger', 'Illaoi',
+                 'Irelia',
+                 'Ivern', 'Janna', 'Jarvan IV', 'Jax', 'Jayce', 'Jhin', 'Jinx', "Kai'Sa", 'Kalista', 'Karma', 'Karthus',
+                 'Kassadin', 'Katarina', 'Kayle', 'Kayn', 'Kennen', "Kha'Zix", 'Kindred', 'Kled', "Kog'Maw", 'LeBlanc',
+                 'Lee Sin', 'Leona', 'Lissandra', 'Lucian', 'Lulu', 'Lux', 'Malphite', 'Malzahar', 'Maokai',
+                 'Master Yi',
+                 'Miss Fortune', 'Mordekaiser', 'Morgana', 'Nami', 'Nasus', 'Nautilus', 'Neeko', 'Nidalee', 'Nocturne',
+                 'Nunu & Willump', 'Olaf', 'Orianna', 'Ornn', 'Pantheon', 'Poppy', 'Pyke', 'Quiana', 'Quinn', 'Rakan',
+                 'Rammus', "Rek'Sai", 'Renekton', 'Rengar', 'Riven', 'Rumble', 'Ryze', 'Sejuani', 'Senna', 'Sett',
+                 'Shaco'
+                 'Shen', 'Shyvana', 'Singed', 'Sion', 'Siver', 'Skarner', 'Sona', 'Soraka', 'Swain', 'Sylas', 'Syndra',
+                 'Tahm Kench', 'Taliyah', 'Talon', 'Taric', 'Teemo', 'Thresh', 'Tristana', 'Trundle', 'Tryndamere',
+                 'Twisted Fate', 'Twitch', 'Udyr', 'Urgot', 'Varus', 'Vayne', 'Veigar', "Vel'Koz", 'Vi', 'Viktor',
+                 'Vladimir', 'Volibear', 'Warwick', 'Wukong', 'Xayah', 'Xerath', 'Xin Zhao', 'Yasuo', 'Yorick', 'Yuumi',
+                 'Zac', 'Zed', 'Ziggs', 'Zilean', 'Zoe', 'Zyra']
+
+    champions_of_letter = []
+
+    for champion in champions:
+        if champion[0] == rand_letter:
+            champions_of_letter.append(champion)
+
+    return_value = [rand_letter, champions_of_letter, random.choice(champions_of_letter)]
+    return return_value
+
+    #try:
+        #print(rand_letter)
+        #print(champions_of_letter)
+        #print(random.choice(champions_of_letter))
+    #except IndexError:
+        #print("Hmm, something went wrong")
+
+def button_press():
+    results = rand_champ()
+
+    result_display = tk.Text(master=window, height=2, width=100)
+    result_display.grid(column=1, row=0)
+    result_display.insert(tk.END, results[0])
+
+    result_display = tk.Text(master=window, height=2, width=100)
+    result_display.grid(column=1, row=1)
+    result_display.insert(tk.END, results[1])
+
+    result_display = tk.Text(master=window, height=2, width=100)
+    result_display.grid(column=1, row=2)
+    result_display.insert(tk.END, results[2])
+
+
+
+
+
+# BUTTON
+button1 = tk.Button(text="Go!", command=button_press)
+button1.grid(column=0, row=0)
+
+
+window.mainloop()
+
+
