@@ -1,6 +1,15 @@
-def federal_income_tax_calculator (yearly_earnings_before_tax, filing_status):
+import tkinter as tk
 
-    if filing_status == "single":
+
+window = tk.Tk()
+window.title("Tax Calculator")
+window.geometry("580x430")
+
+
+# FUNCTIONS
+def federal_income_tax_calculator(yearly_earnings_before_tax, filing_status):
+
+    if filing_status == "Single":
         standard_deduction = 12400
         gate1 = 9875
         gate2 = 40125
@@ -8,7 +17,7 @@ def federal_income_tax_calculator (yearly_earnings_before_tax, filing_status):
         gate4 = 163300
         gate5 = 207350
         gate6 = 518400
-    elif filing_status == "head of household":
+    elif filing_status == "Head of household":
         standard_deduction = 18650
         gate1 = 14100
         gate2 = 53700
@@ -16,7 +25,7 @@ def federal_income_tax_calculator (yearly_earnings_before_tax, filing_status):
         gate4 = 163300
         gate5 = 207350
         gate6 = 518400
-    elif filing_status == "married filing jointly or qualifying widow":
+    elif filing_status == "Married filing jointly or qualifying widow":
         standard_deduction = 24800
         gate1 = 19750
         gate2 = 80250
@@ -24,7 +33,7 @@ def federal_income_tax_calculator (yearly_earnings_before_tax, filing_status):
         gate4 = 326600
         gate5 = 414700
         gate6 = 622050
-    elif filing_status == "married filing seperately":
+    elif filing_status == "Married filing separately":
         standard_deduction = 12400
         gate1 = 9875
         gate2 = 40125
@@ -72,3 +81,81 @@ def federal_income_tax_calculator (yearly_earnings_before_tax, filing_status):
     effective_tax_rate = format(effective_tax_rate, ".1%")
 
     return yearly_earnings_after_tax, effective_tax_rate, federal_income_tax, standard_deduction, taxable_income
+
+
+def button_press():
+    value = get_value()
+    filing_status = get_filing_status()
+    results = federal_income_tax_calculator(value, filing_status)
+
+    result_display = tk.Text(master=window, height=1, width=15)
+    result_display.grid(column=2, row=2)
+    result_display.insert(tk.END, results[0])
+
+    result_display = tk.Text(master=window, height=1, width=15)
+    result_display.grid(column=2, row=3)
+    result_display.insert(tk.END, results[1])
+
+    result_display = tk.Text(master=window, height=1, width=15)
+    result_display.grid(column=2, row=4)
+    result_display.insert(tk.END, results[2])
+
+    result_display = tk.Text(master=window, height=1, width=15)
+    result_display.grid(column=2, row=5)
+    result_display.insert(tk.END, results[3])
+
+    result_display = tk.Text(master=window, height=1, width=15)
+    result_display.grid(column=2, row=6)
+    result_display.insert(tk.END, results[4])
+
+
+def get_value():
+    value = float(entry1.get())
+    return value
+
+def get_filing_status():
+    selection = listbox1.curselection()
+    filing_status = listbox1.get(selection)
+    return filing_status
+
+
+# BUTTON
+button1 = tk.Button(text="Calculate", command=button_press)
+button1.grid(column=0, row=0)
+
+# LISTBOX
+listbox1 = tk.Listbox(master=window, height=4, width=37)
+listbox1.insert(1, "Single")
+listbox1.insert(2, "Head of household")
+listbox1.insert(3, "Married filing jointly or qualifying widow")
+listbox1.insert(4, "Married filing separately")
+listbox1.grid(column=1, row=1)
+
+# LABELS
+label1 = tk.Label(master=window, text="Yearly Earnings After Tax", height=4)
+label1.grid(column=1, row=2)
+
+label2 = tk.Label(master=window, text="Effective Tax Rate", height=4 )
+label2.grid(column=1, row=3)
+
+label3 = tk.Label(master=window, text="Federal Income Tax", height=4)
+label3.grid(column=1, row=4)
+
+label4 = tk.Label(master=window, text="Standard Deduction", height=4)
+label4.grid(column=1, row=5)
+
+label5 = tk.Label(master=window, text="Taxable Income", height=4)
+label5.grid(column=1, row=6)
+
+label5 = tk.Label(master=window, text="Filing Status", height=4)
+label5.grid(column=0, row=1)
+
+label5 = tk.Label(master=window, text="Yearly Income Before Tax", height=4)
+label5.grid(column=2, row=1)
+
+# ENTRY
+entry1 = tk.Entry(master=window)
+entry1.grid(column=4, row=1)
+
+
+window.mainloop()
